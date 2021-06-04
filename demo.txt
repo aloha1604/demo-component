@@ -1,0 +1,1222 @@
+<template>
+    <div class="register-form">
+        <div class="wrapper-sign-up w-100 h-100">
+            <loader :active="loading"></loader>
+            <!--Main layout-->
+            <main v-show="step === 1" class="mt-5 pt-4 animated slideInLeft">
+                <div class="container">
+                    <h3 class="my-5 h3 text-center">Our pricing plans</h3>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-8 text-center">
+                            <p class="mb-5">
+                                Pharmacy
+                            </p>
+                        </div>
+                    </div>
+                    <div style="min-height: 484px" class="row text-center">
+                        <div
+                            v-for="subscription in subscriptions"
+                            :key="subscription._id"
+                            class="col-lg-4 col-md-12 mb-4"
+                        >
+                            <div
+                                v-if="
+                                    subscription.subscriptionType ===
+                                    'freeTrial'
+                                "
+                                class="card"
+                            >
+                                <div class="card-header">
+                                    <h4>
+                                        <strong>{{ subscription.name }}</strong>
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <h3
+                                        class="card-title pricing-card-title mb-4"
+                                    >
+                                        $0
+                                        <small class="text-muted">/ mo</small>
+                                    </h3>
+                                    <ol class="list-unstyled mb-4">
+                                        <li>
+                                            10 users included
+                                            <i
+                                                class="fas fa-check green-text ml-1"
+                                            ></i>
+                                        </li>
+                                        <hr />
+                                        <li>
+                                            2 GB of storage
+                                            <i
+                                                class="fas fa-check green-text ml-1"
+                                            ></i>
+                                        </li>
+                                        <hr />
+                                        <li>
+                                            Email support
+                                            <i
+                                                class="fas fa-check green-text ml-1"
+                                            ></i>
+                                        </li>
+                                        <hr />
+                                        <li>
+                                            Help center access
+                                            <i
+                                                class="fas fa-check green-text ml-1"
+                                            ></i>
+                                        </li>
+                                    </ol>
+                                    <button
+                                        type="button"
+                                        class="btn btn-lg btn-block btn-outline-primary waves-effect"
+                                        @click="
+                                            changeSubscription(subscription)
+                                        "
+                                    >
+                                        Sign up for free
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div
+                                v-if="
+                                    subscription.subscriptionType ===
+                                    'proMonthly'
+                                "
+                                class="card"
+                            >
+                                <div class="card-header">
+                                    <h4>
+                                        <strong>{{ subscription.name }}</strong>
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <h3
+                                        class="card-title pricing-card-title mb-4"
+                                    >
+                                        ${{
+                                            (subscription.amount / 100).toFixed(
+                                                2
+                                            )
+                                        }}
+                                        <small class="text-muted">/ mo</small>
+                                    </h3>
+                                    <ol class="list-unstyled mb-4">
+                                        <li>
+                                            20 users included
+                                            <i
+                                                class="fas fa-check green-text ml-1"
+                                            ></i>
+                                        </li>
+                                        <hr />
+                                        <li>
+                                            10 GB of storage
+                                            <i
+                                                class="fas fa-check green-text ml-1"
+                                            ></i>
+                                        </li>
+                                        <hr />
+                                        <li>
+                                            Priority email support
+                                            <i
+                                                class="fas fa-check green-text ml-1"
+                                            ></i>
+                                        </li>
+                                        <hr />
+                                        <li>
+                                            Help center access
+                                            <i
+                                                class="fas fa-check green-text ml-1"
+                                            ></i>
+                                        </li>
+                                    </ol>
+                                    <button
+                                        type="button"
+                                        class="btn btn-lg btn-block btn-primary"
+                                        @click="
+                                            changeSubscription(subscription)
+                                        "
+                                    >
+                                        Get started
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div
+                                v-if="
+                                    subscription.subscriptionType ===
+                                    'proYearly'
+                                "
+                                class="card"
+                            >
+                                <div class="card-header">
+                                    <h4>
+                                        <strong>{{ subscription.name }}</strong>
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <h3
+                                        class="card-title pricing-card-title mb-4"
+                                    >
+                                        ${{
+                                            (subscription.amount / 100).toFixed(
+                                                2
+                                            )
+                                        }}
+                                        <small class="text-muted">/ mo</small>
+                                    </h3>
+                                    <ol class="list-unstyled mb-4">
+                                        <li>
+                                            30 users included
+                                            <i
+                                                class="fas fa-check green-text ml-1"
+                                            ></i>
+                                        </li>
+                                        <hr />
+                                        <li>
+                                            15 GB of storage
+                                            <i
+                                                class="fas fa-check green-text ml-1"
+                                            ></i>
+                                        </li>
+                                        <hr />
+                                        <li>
+                                            Phone and email support
+                                            <i
+                                                class="fas fa-check green-text ml-1"
+                                            ></i>
+                                        </li>
+                                        <hr />
+                                        <li>
+                                            Help center access
+                                            <i
+                                                class="fas fa-check green-text ml-1"
+                                            ></i>
+                                        </li>
+                                    </ol>
+                                    <button
+                                        type="button"
+                                        class="btn btn-lg btn-block btn-primary waves-effect"
+                                        @click="
+                                            changeSubscription(subscription)
+                                        "
+                                    >
+                                        Get started
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <section
+                id="wrapper-payment-form"
+                v-show="step === 2"
+                class="animated slideInRight mt-5 pt-3"
+            >
+                <div class="container">
+                    <div class="row">
+                        <div
+                            class="col-md-5 mb-5 white-text text-center text-md-left"
+                        >
+                            <h1
+                                class="display-4 font-weight-bold text-black-50"
+                            >
+                                What is Lorem Ipsum?
+                            </h1>
+                            <hr class="hr-dark" />
+                            <p class="text-black-50">
+                                <strong
+                                    >Best & free guide of responsive web
+                                    design</strong
+                                >
+                            </p>
+                            <p class="mb-4 d-none d-md-block text-black-50">
+                                <strong
+                                    >Lorem Ipsum is simply dummy text of the
+                                    printing and typesetting industry. Lorem
+                                    Ipsum has been the industry's standard dummy
+                                    text ever since the 1500s, when an unknown
+                                    printer took a galley of type and scrambled
+                                    it to make a type specimen book. It has
+                                    survived not only five centuries, but also
+                                    the leap into electronic typesetting,
+                                    remaining essentially unchanged. It was
+                                    popularised in the 1960s with the release of
+                                    Letraset sheets containing Lorem Ipsum
+                                    passages, and more recently with desktop
+                                    publishing software like Aldus PageMaker
+                                    including versions of Lorem Ipsum</strong
+                                >
+                            </p>
+                            <a
+                                target="_blank"
+                                href="#"
+                                class="btn btn-indigo btn-lg"
+                                >Start free tutorial
+                                <i class="fas fa-graduation-cap ml-2"></i>
+                            </a>
+                        </div>
+                        <div class="col-md-7 col-xl-7 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form
+                                        class="needs-validation"
+                                        novalidate
+                                        @submit="checkForm"
+                                    >
+                                        <h5 class="dark-grey-text text-left">
+                                            <strong>{{
+                                                packageSubscription.name ||
+                                                "Pharmacy register to become member"
+                                            }}</strong>
+                                        </h5>
+                                        <hr />
+                                        <span class="text-danger text-left">
+                                            <strong
+                                                v-for="(error, index) in errors"
+                                                :key="index"
+                                            >
+                                                {{
+                                                    error[0] +
+                                                    addDelimiters(index)
+                                                }}
+                                            </strong>
+                                        </span>
+                                        <div class="form-row">
+                                            <div class="col">
+                                                <div class="md-form">
+                                                    <input
+                                                        v-model="
+                                                            user.pharmacyName
+                                                        "
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="PharmacyName"
+                                                        required
+                                                    />
+                                                    <label for="PharmacyName"
+                                                        >Pharmacy name
+                                                        <span
+                                                            class="text-danger"
+                                                            >*</span
+                                                        ></label
+                                                    >
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="md-form">
+                                                    <input
+                                                        v-model="user.email"
+                                                        type="email"
+                                                        class="form-control"
+                                                        id="email"
+                                                        required
+                                                    />
+                                                    <label for="email"
+                                                        >Email
+                                                        <span
+                                                            class="text-danger"
+                                                            >*</span
+                                                        ></label
+                                                    >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col">
+                                                <div class="md-form">
+                                                    <input
+                                                        v-model="user.city"
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="city"
+                                                        required
+                                                    />
+                                                    <label for="city"
+                                                        >City
+                                                        <span
+                                                            class="text-danger"
+                                                            >*</span
+                                                        ></label
+                                                    >
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="md-form">
+                                                    <v-select
+                                                        :value="selectedCountry"
+                                                        @input="
+                                                            setSelectedCountry
+                                                        "
+                                                        class="form-control pl-0 pr-0 sign-up-country"
+                                                        :options="countries"
+                                                        label="name"
+                                                    >
+                                                        <template
+                                                            slot="option"
+                                                            slot-scope="option"
+                                                        >
+                                                            <country-flag
+                                                                :country="
+                                                                    option.code.toLowerCase()
+                                                                "
+                                                                size="small"
+                                                            />
+                                                            {{ option.name }}
+                                                        </template>
+                                                    </v-select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col">
+                                                <div class="md-form">
+                                                    <input
+                                                        v-model="user.address"
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="address"
+                                                        required
+                                                    />
+                                                    <label for="address"
+                                                        >Address
+                                                        <span
+                                                            class="text-danger"
+                                                            >*</span
+                                                        ></label
+                                                    >
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="row">
+                                                    <div class="col-3 pr-0">
+                                                        <div class="md-form">
+                                                            <input
+                                                                v-model="
+                                                                    user.areaCode
+                                                                "
+                                                                type="text"
+                                                                class="form-control"
+                                                                id="areaCode"
+                                                                required
+                                                            />
+                                                            <label
+                                                                for="areaCode"
+                                                                >+00</label
+                                                            >
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-9">
+                                                        <div class="md-form">
+                                                            <input
+                                                                v-model="
+                                                                    user.phone
+                                                                "
+                                                                type="text"
+                                                                class="form-control"
+                                                                id="phone"
+                                                                required
+                                                            />
+                                                            <label for="phone"
+                                                                >Phone
+                                                                <span
+                                                                    class="text-danger"
+                                                                    >*</span
+                                                                ></label
+                                                            >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col">
+                                                <div class="md-form">
+                                                    <input
+                                                        ref="password"
+                                                        v-model="user.password"
+                                                        type="password"
+                                                        class="form-control"
+                                                        id="password"
+                                                        minlength="8"
+                                                        required
+                                                    />
+                                                    <label for="password"
+                                                        >Password
+                                                        <span
+                                                            class="text-danger"
+                                                            >*</span
+                                                        ></label
+                                                    >
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="md-form">
+                                                    <input
+                                                        ref="confirmPassword"
+                                                        v-model="
+                                                            user.password_confirmation
+                                                        "
+                                                        type="password"
+                                                        class="form-control"
+                                                        id="confirmPassword"
+                                                        minlength="8"
+                                                        required
+                                                    />
+                                                    <label for="confirmPassword"
+                                                        >Confirm Password
+                                                        <span
+                                                            class="text-danger"
+                                                            >*</span
+                                                        ></label
+                                                    >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            v-if="
+                                                subscriptionType !== 'freeTrial'
+                                            "
+                                        >
+                                            <h5
+                                                class="dark-grey-text text-left mt-4"
+                                            >
+                                                <strong>Payment method</strong>
+                                            </h5>
+                                            <hr />
+                                            <div
+                                                class="col-md-12 mb-3 p-0 text-left"
+                                                disabled="disabled"
+                                            >
+                                                <div class="md-form">
+                                                    <input
+                                                        v-model="cardName"
+                                                        type="text"
+                                                        id="NameOnCard"
+                                                        class="form-control"
+                                                        required
+                                                    />
+                                                    <label for="NameOnCard"
+                                                        >Name on Card
+                                                        <span
+                                                            class="text-danger"
+                                                            >*</span
+                                                        ></label
+                                                    >
+                                                </div>
+                                                <card-number
+                                                    class="stripe-element card-number"
+                                                    ref="cardNumber"
+                                                    :stripe="stripe"
+                                                    :options="optionCard"
+                                                    @change="
+                                                        number = $event.complete
+                                                    "
+                                                />
+                                                <div class="form-row">
+                                                    <div class="col">
+                                                        <div class="md-form">
+                                                            <card-expiry
+                                                                class="stripe-element card-expiry"
+                                                                ref="cardExpiry"
+                                                                :stripe="stripe"
+                                                                :options="
+                                                                    options
+                                                                "
+                                                                @change="
+                                                                    expiry =
+                                                                        $event.complete
+                                                                "
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="md-form">
+                                                            <card-cvc
+                                                                class="stripe-element card-cvc"
+                                                                ref="cardCvc"
+                                                                :stripe="stripe"
+                                                                :options="
+                                                                    options
+                                                                "
+                                                                @change="
+                                                                    cvc =
+                                                                        $event.complete
+                                                                "
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div
+                                                        class="col-12 stripe-card-icons mt-2"
+                                                    >
+                                                        <img
+                                                            :src="
+                                                                require('../../assets/images/StripePaymenticons.png')
+                                                            "
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <hr />
+                                            <fieldset class="form-check">
+                                                <input
+                                                    v-model="acceptTerms"
+                                                    type="checkbox"
+                                                    class="form-check-input"
+                                                    id="acceptTerms"
+                                                    @click="
+                                                        acceptTerms = !acceptTerms
+                                                    "
+                                                />
+                                                <label
+                                                    for="acceptTerms"
+                                                    class="form-check-label dark-grey-text"
+                                                    >I accept the Terms and
+                                                    Conditions and privacy
+                                                    policy</label
+                                                >
+                                            </fieldset>
+                                            <button
+                                                @click="step = 1"
+                                                type="button"
+                                                class="btn btn-light"
+                                            >
+                                                <i
+                                                    class="fas fa-arrow-left"
+                                                ></i>
+                                                Back
+                                            </button>
+                                            <button
+                                                v-if="
+                                                    subscriptionType !==
+                                                    'freeTrial'
+                                                "
+                                                :disabled="!acceptTerms"
+                                                class="btn btn-danger"
+                                                @click="proRegister"
+                                            >
+                                                <i
+                                                    class="fas fa-dollar-sign"
+                                                ></i>
+                                                Pay(VAT 25%) ${{
+                                                    (
+                                                        packageSubscription.amount /
+                                                            100 +
+                                                        (packageSubscription.amount *
+                                                            25) /
+                                                            10000
+                                                    ).toFixed(2)
+                                                }}
+                                            </button>
+                                            <button
+                                                v-if="
+                                                    subscriptionType ===
+                                                    'freeTrial'
+                                                "
+                                                :disabled="!acceptTerms"
+                                                class="btn btn-danger"
+                                                @click="freeRegister"
+                                            >
+                                                Start Free Trial Now
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--Main layout-->
+        </div>
+    </div>
+</template>
+
+<script>
+import loader from "../Extensions/Loader";
+import { mdbContainer, mdbBtn, mdbCardTitle, mdbIcon } from "mdbvue";
+import {
+    createToken,
+    createPaymentMethod,
+    handleCardPayment,
+    CardNumber,
+    CardExpiry,
+    CardCvc,
+} from "vue-stripe-elements-plus";
+import { validateUser, randomUserLocal } from "../../helpers/registers";
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
+import countries from "../../constants/countries";
+import CountryFlag from "vue-country-flag";
+import { login, me } from "../../helpers/auth";
+
+export default {
+    name: "SignUp",
+    components: {
+        loader,
+        mdbBtn,
+        mdbCardTitle,
+        mdbIcon,
+        CardNumber,
+        CardExpiry,
+        CardCvc,
+        vSelect,
+        CountryFlag,
+    },
+    data() {
+        return {
+            step: 1,
+            loading: false,
+            subscriptionType: "freeTrial",
+            packageSubscription: {},
+            complete: false,
+            stripe: process.env.MIX_STRIPE_PUBLISH_KEY,
+            options: {
+                style: {
+                    base: {
+                        fontWeight: 500,
+                        fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
+                        fontSize: "16px",
+                        fontSmoothing: "antialiased",
+                        ":-webkit-autofill": {
+                            color: "#fce883",
+                        },
+                        "::placeholder": {
+                            color: "#757575",
+                        },
+                    },
+                    invalid: {
+                        iconColor: "#e3342f",
+                        color: "#e3342f",
+                    },
+                },
+            },
+            optionCard: {
+                style: {
+                    base: {
+                        fontWeight: 500,
+                        fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
+                        fontSize: "16px",
+                        fontSmoothing: "antialiased",
+                        ":-webkit-autofill": {
+                            color: "#fce883",
+                        },
+                        "::placeholder": {
+                            color: "#757575",
+                        },
+                    },
+                    invalid: {
+                        iconColor: "#e3342f",
+                        color: "#e3342f",
+                    },
+                },
+                showIcon: true,
+                placeholder: "0000 1234 4567 8900",
+            },
+            user: {
+                pharmacyName: "",
+                country: "",
+                countryName: "",
+                city: "",
+                address: "",
+                email: "",
+                areaCode: "",
+                phone: "",
+                password: "",
+                password_confirmation: "",
+            },
+            cardName: "",
+            acceptTerms: false,
+            number: false,
+            expiry: false,
+            cvc: false,
+            errors: {},
+            countries: countries,
+            selectedCountry: null,
+        };
+    },
+    mounted() {
+        this.$store.dispatch("loadSubscriptions");
+        // add sample data when run on local
+        let url = window.location.hostname.split(".").slice(-2);
+        if (url[0] === "localhost" || url[1] === "local") {
+            this.user = randomUserLocal();
+            this.cardName = this.user.pharmacyName + " C";
+            this.selectedCountry = countries.filter(
+                (e) => e.code == this.user.country
+            );
+        }
+    },
+    computed: {
+        getPassword() {
+            return this.user.password;
+        },
+        getPassword_confirmation() {
+            return this.user.password_confirmation;
+        },
+        subscriptions() {
+            return this.$store.state.Subscrtiptions.subscriptions;
+        },
+    },
+    methods: {
+        update() {
+            this.complete = this.number && this.expiry && this.cvc;
+            if (this.number) {
+                if (!this.expiry) {
+                    this.$refs.cardExpiry.focus();
+                } else if (!this.cvc) {
+                    this.$refs.cardCvc.focus();
+                }
+            } else if (this.expiry) {
+                if (!this.cvc) {
+                    this.$refs.cardCvc.focus();
+                } else if (!this.number) {
+                    this.$refs.cardNumber.focus();
+                }
+            }
+            if (this.number) {
+                this.$refs.cardNumber.$el.classList.value =
+                    "stripe-element card-number";
+            }
+            if (this.expiry) {
+                this.$refs.cardExpiry.$el.classList.value =
+                    "stripe-element card-number";
+            }
+            if (this.cvc) {
+                this.$refs.cardCvc.$el.classList.value =
+                    "stripe-element card-number";
+            }
+        },
+
+        changeSubscription(subscription) {
+            this.packageSubscription = subscription;
+            this.subscriptionType = subscription.subscriptionType;
+            this.step = 2;
+        },
+
+        checkForm(event) {
+            event.preventDefault();
+            event.target.classList.add("was-validated");
+            return false;
+        },
+        proRegister() {
+            // createToken returns a Promise which resolves in a result object with
+            // either a token or an error key.
+            // See https://stripe.com/docs/api#tokens for the token object.
+            // See https://stripe.com/docs/api#errors for the error object.
+            // More general https://stripe.com/docs/stripe.js#stripe-create-token.
+            if (
+                !this.complete ||
+                !validateUser(this.user) ||
+                this.cardName === "" ||
+                this.cardName === undefined
+            ) {
+                if (!this.number) {
+                    this.$refs.cardNumber.$el.classList.value =
+                        this.$refs.cardNumber.$el.classList.value +
+                        " card-invalid";
+                }
+                if (!this.expiry) {
+                    this.$refs.cardExpiry.$el.classList.value =
+                        this.$refs.cardExpiry.$el.classList.value +
+                        " card-invalid";
+                }
+                if (!this.cvc) {
+                    this.$refs.cardCvc.$el.classList.value =
+                        this.$refs.cardCvc.$el.classList.value +
+                        " card-invalid";
+                }
+                return false;
+            }
+            let self = this;
+            self.loading = true;
+            createPaymentMethod("card", {
+                billing_details: {
+                    address: {
+                        city: this.user.city,
+                        line1: this.user.address,
+                    },
+                    email: this.user.email,
+                    name: this.user.pharmacyName,
+                    phone: this.user.phone,
+                },
+                metadata: {
+                    cardName: this.cardName,
+                },
+            })
+                .then((data) => {
+                    if (data !== undefined) {
+                        axios
+                            .post("/api/register", {
+                                ...this.user,
+                                ...data,
+                                packageSubscription: this.packageSubscription,
+                                cardName: this.cardName,
+                            })
+                            .then((result) => {
+                                if (result.data.status === true) {
+                                    if (
+                                        result.data.client_secret !== undefined
+                                    ) {
+                                        handleCardPayment(
+                                            result.data.client_secret
+                                        )
+                                            .then(function (res) {
+                                                // Handle result.error or result.paymentIntent
+                                                // More details in Step 2.
+                                                if (
+                                                    res.paymentIntent !==
+                                                        undefined &&
+                                                    res.paymentIntent.status ===
+                                                        "succeeded"
+                                                ) {
+                                                    axios
+                                                        .post(
+                                                            "/api/updatesSubscription",
+                                                            {
+                                                                username:
+                                                                    self.user
+                                                                        .email,
+                                                                ...res,
+                                                            }
+                                                        )
+                                                        .then(() => {
+                                                            self.loading = false;
+                                                        });
+                                                }
+                                                self.loading = false;
+                                                localStorage.setItem(
+                                                    "_token",
+                                                    result.data.token
+                                                );
+                                                localStorage.removeItem(
+                                                    "interval_time"
+                                                );
+                                                // self.$router.push({
+                                                //     name: "WrapperDashboard",
+                                                // });
+                                                //  call api me
+                                                me()
+                                                    .then((result) => {
+                                                        self.$store.commit(
+                                                            "LOGGEDIN_USER",
+                                                            result
+                                                        );
+                                                        let {
+                                                            issa,
+                                                        } = self.$store.state.Auth.currentUser;
+
+                                                        if (
+                                                            issa !== undefined
+                                                        ) {
+                                                            localStorage.setItem(
+                                                                "issa",
+                                                                issa
+                                                            );
+                                                            self.$router.push({
+                                                                name:
+                                                                    "dashboardManagement",
+                                                            });
+                                                        } else {
+                                                            self.$router.push({
+                                                                name:
+                                                                    "dashboardDefault",
+                                                            });
+                                                        }
+                                                    })
+                                                    .catch((err) => {
+                                                        if (err) {
+                                                            self.message =
+                                                                err.message;
+                                                        }
+                                                    });
+                                                // end call api me
+                                            })
+                                            .catch((err) => {
+                                                self.loading = false;
+                                                console.log(err);
+                                            });
+                                    } else {
+                                        self.loading = false;
+                                        localStorage.setItem(
+                                            "_token",
+                                            result.data.token
+                                        );
+                                        localStorage.removeItem(
+                                            "interval_time"
+                                        );
+                                        // self.$router.push({
+                                        //     name: "WrapperDashboard",
+                                        // });
+                                        // call api me
+                                        me()
+                                            .then((result) => {
+                                                self.$store.commit(
+                                                    "LOGGEDIN_USER",
+                                                    result
+                                                );
+                                                let {
+                                                    issa,
+                                                } = self.$store.state.Auth.currentUser;
+
+                                                if (issa !== undefined) {
+                                                    localStorage.setItem(
+                                                        "issa",
+                                                        issa
+                                                    );
+                                                    self.$router.push({
+                                                        name:
+                                                            "dashboardManagement",
+                                                    });
+                                                } else {
+                                                    self.$router.push({
+                                                        name:
+                                                            "dashboardDefault",
+                                                    });
+                                                }
+                                            })
+                                            .catch((err) => {
+                                                if (err) {
+                                                    self.message = err.message;
+                                                }
+                                            });
+                                        // end call api me
+                                    }
+                                }
+                            })
+                            .catch((err) => {
+                                if (
+                                    err.response !== undefined &&
+                                    err.response.status === 422
+                                ) {
+                                    this.errors = err.response.data.errors;
+                                }
+                                self.loading = false;
+                            });
+                    }
+                })
+                .catch((err) => {
+                    self.loading = false;
+                });
+        },
+        freeRegister() {
+            if (!validateUser(this.user)) {
+                return false;
+            }
+            let self = this;
+            self.loading = true;
+            axios
+                .post("/api/register", {
+                    ...this.user,
+                    packageSubscription: this.packageSubscription,
+                    paymentMethod: "not available",
+                })
+                .then((result) => {
+                    if (result.data.status === true) {
+                        self.loading = false;
+                        localStorage.setItem("_token", result.data.token);
+                        localStorage.removeItem("interval_time");
+                        // self.$router.push({ name: "WrapperDashboard" });
+                        //call api me
+                        me()
+                            .then((result) => {
+                                self.$store.commit("LOGGEDIN_USER", result);
+                                let {
+                                    issa,
+                                } = self.$store.state.Auth.currentUser;
+
+                                if (issa !== undefined) {
+                                    localStorage.setItem("issa", issa);
+                                    self.$router.push({
+                                        name: "dashboardManagement",
+                                    });
+                                } else {
+                                    self.$router.push({
+                                        name: "dashboardDefault",
+                                    });
+                                }
+                            })
+                            .catch((err) => {
+                                if (err) {
+                                    self.message = err.message;
+                                }
+                            });
+                        // call api me
+                    }
+                })
+                .catch((err) => {
+                    if (
+                        err.response !== undefined &&
+                        err.response.status === 422
+                    ) {
+                        this.errors = err.response.data.errors;
+                    }
+                    self.loading = false;
+                });
+        },
+
+        handleConfirmPassword() {
+            if (
+                this.user.password.length >= 8 &&
+                this.user.password_confirmation.length &&
+                this.user.password != this.user.password_confirmation
+            ) {
+                this.$refs.password.classList.add("invalid-password");
+                this.$refs.confirmPassword.classList.add("invalid-password");
+            } else {
+                this.$refs.password.classList.remove("invalid-password");
+                this.$refs.confirmPassword.classList.remove("invalid-password");
+            }
+        },
+        addDelimiters(index) {
+            let last = Object.keys(this.errors)[
+                Object.keys(this.errors).length - 1
+            ];
+            let length = Object.keys(this.errors).length;
+            if (last != index && length > 1) {
+                return ", ";
+            }
+            if (last === index) {
+                return ".";
+            }
+        },
+        setSelectedCountry(value) {
+            this.selectedCountry = value;
+            this.user.country = value.code;
+            this.user.countryName = value.name;
+        },
+    },
+    watch: {
+        getPassword() {
+            this.handleConfirmPassword();
+        },
+
+        getPassword_confirmation() {
+            this.handleConfirmPassword();
+        },
+
+        subscriptions() {
+            if (this.subscriptions.length > 0) {
+                this.subscriptionType = this.subscriptions[0].subscriptionType;
+                this.packageSubscription = this.subscriptions[0];
+            }
+        },
+        number() {
+            this.update();
+        },
+        expiry() {
+            this.update();
+        },
+        cvc() {
+            this.update();
+        },
+    },
+};
+</script>
+
+<style lang="scss" scoped>
+.register-form-tile {
+    background: #998356;
+    margin-top: -5rem;
+    padding: 1.5rem 0;
+    color: #fff;
+    border-radius: 0.25rem !important;
+}
+.register-form-tile-2 {
+    background: #998356;
+    margin-top: -5rem;
+    padding: 1.5rem 1.5rem;
+    color: #fff;
+    border-radius: 0.25rem !important;
+}
+.step-1 {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-radius: 0.25rem !important;
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+        0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+        0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.box-title {
+    padding: 0 5rem;
+    margin-bottom: 1.5rem;
+}
+.custom-control-label {
+    font-size: 1.2rem;
+    padding-left: 0.5rem;
+}
+.custom-control-label::before,
+.custom-control-label::after {
+    top: 0.25rem;
+    left: -1.5rem;
+    width: 1.2rem;
+    height: 1.2rem;
+}
+@media (min-width: 768px) {
+    #wrapper-payment-form {
+        height: 100vh;
+        min-height: 850px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+.stripe-card {
+    background: rgba(237, 242, 247);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+}
+.stripe-card.complete {
+    border-color: green;
+}
+#username.form-control:disabled,
+#username.form-control[readonly] {
+    background-color: #e9ecef;
+    opacity: 0.5;
+    border: #e9ecef;
+}
+@media (min-width: 1200px) {
+    .navbar,
+    .page-footer,
+    main {
+        padding-left: 0;
+    }
+}
+.md-form select.form-control {
+    -webkit-box-sizing: border-box !important;
+    box-sizing: border-box !important;
+    border: none;
+    border-bottom: 1px solid #ced4da;
+}
+.md-form {
+    position: relative;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+.stripe-element {
+    padding: 5px;
+    border-bottom: 1px solid #ced4da;
+}
+.stripe-card-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+        height: 45px;
+    }
+}
+.stripe-element.card-invalid {
+    border-bottom: 1px solid #e3342f;
+}
+.vs--searchable {
+    padding: 0 !important;
+}
+</style>
